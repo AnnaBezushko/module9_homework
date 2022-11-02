@@ -22,6 +22,9 @@ const buttonNode = document.querySelector(".button");
 const resultNode = document.querySelector(".result");
 document.querySelector(".page").value = localStorage.getItem('pageKey');
 document.querySelector(".limit").value = localStorage.getItem('limitKey');
+// проверка и запись картинок, если есть в localStorage
+const listLatImg = localStorage.listImages ? displayResult(JSON.parse(localStorage.getItem('listImages'))) : '';
+
 function displayResult(apiData) {
   let cards = "";
   apiData.forEach((item) => {
@@ -49,9 +52,8 @@ function getData(page, limit) {
       displayResult(data);
       localStorage.setItem('pageKey', page);
       localStorage.setItem('limitKey', limit);
-
-
-  
+      // запись в localStorage
+      localStorage.setItem('listImages', JSON.stringify(data));  
     });
 }
 
